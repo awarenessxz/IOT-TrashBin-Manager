@@ -8,6 +8,8 @@ var logger = require('morgan');
 /* --- [ADD NEW PAGE - INCLUDE ROUTER HERE] --- */
 var indexRouter = require('./routes/index');
 var scriptingRouter = require('./routes/scripting');	// template for running python script
+var monitorRouter = require('./routes/monitor');
+var nearbyAppRouter = require('./routes/nearbyApp');
 
 var app = express();
 
@@ -25,6 +27,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 /* --- [ADD NEW PAGE - ADD THE ROUTER HERE]--- */
 app.use('/', indexRouter);
 app.use('/scripting', scriptingRouter); 				// template for running python script
+app.use('/monitor', monitorRouter);
+app.use('/nearbyApp', nearbyAppRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
