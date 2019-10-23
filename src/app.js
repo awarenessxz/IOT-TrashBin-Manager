@@ -1,11 +1,13 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+/* --- [ADD NEW PAGE - INCLUDE ROUTER HERE] --- */
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var scriptingRouter = require('./routes/scripting');	// template for running python script
 
 var app = express();
 
@@ -16,11 +18,13 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));	// Body Parser Init (For POST methods)
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/* --- [ADD NEW PAGE - ADD THE ROUTER HERE]--- */
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/scripting', scriptingRouter); 				// template for running python script
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
