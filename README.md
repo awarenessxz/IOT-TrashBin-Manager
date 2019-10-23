@@ -22,3 +22,5 @@ IOT Network project on trash bin management incorporating proximity sensors
 - Integrating Python with Nodejs
 	- https://www.freecodecamp.org/news/how-to-integrate-a-python-ruby-php-shell-script-with-node-js-using-child-process-spawn-e26ca3268a11/
 	- https://medium.com/geoblinktech/evolution-of-calling-python-from-node-4369a84f22c7
+- Web Template
+	- https://github.com/uxcandy/Label-Free-Bootstrap-Admin-Template/tree/master/src
