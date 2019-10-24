@@ -10,10 +10,12 @@ IOT Network project on trash bin management incorporating proximity sensors
 1. [Install NodeJS](https://nodejs.org/en/).
 2. git clone this repo
 3. Ensure that python is installed.
-	- `pip install -i requirements.txt`
+	- Install the required python libraries: `pip install -i requirements.txt` 
+4. cd `src`
 4. Start up the database
 	- run `psql` terminal
-	- edit `src/.env` file based on your psql credentials
+	- create a file named `.env` in the current directory (src) and add the following in the file
+		`DATABASE URL=postgres://username:password@host address:port/database name`
 	- in the psql terminal, run `\i '[path_to_this_repo]/setup.sql'`
 5. Start the server
 	- cd `src`

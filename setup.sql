@@ -11,7 +11,7 @@ CREATE TABLE SensorData (
 	topic_id varchar(100) PRIMARY KEY,
 	distance numeric NOT NULL,
 	dt timestamp NOT NULL,
-	FOREIGN KEY(topicID) REFERENCES TrashBinInfo(binID) ON DELETE CASCADE
+	FOREIGN KEY(topic_id) REFERENCES TrashBinInfo(bin_id) ON DELETE CASCADE
 );
 
 -- Inserting dummy data
