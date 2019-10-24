@@ -6,7 +6,7 @@ IOT Network project on trash bin management incorporating proximity sensors
 - Python 3
 - Postgresql 
 
-# Setup
+# Local Setup
 1. [Install NodeJS](https://nodejs.org/en/).
 2. git clone this repo
 3. Ensure that python is installed.
@@ -22,6 +22,18 @@ IOT Network project on trash bin management incorporating proximity sensors
 	- Install the required node packages: `npm install`
 	- run the server: `node bin/www`
 
+# Heroku Setup
+1. git clone this repo
+2. `heroku login`
+3. `heroku create`
+4. `heroku buildpacks:set heroku/nodejs`
+5. `heroku buildpacks:set heroku/python`
+6. `git push heroku herokuHost:master`
+		- `git commit --allow-empty -m "Adjust buildpacks on Heroku"` --> might have to do this to push to heroku after editing buildpacks
+7. `heroku ps:scale web=1`
+9. `heroku open`
+0. `heroku logs --tail` --> view logs
+
 # IMPORTANT NOTES:
 1. Add python scripts into `lib/python` folder. 
 2. Templates
@@ -35,3 +47,6 @@ IOT Network project on trash bin management incorporating proximity sensors
 	- https://medium.com/geoblinktech/evolution-of-calling-python-from-node-4369a84f22c7
 - Web Template
 	- https://github.com/uxcandy/Label-Free-Bootstrap-Admin-Template/tree/master/src
+- Heroku
+	- https://stackoverflow.com/questions/25834500/push-different-branch-to-heroku/25834522
+	- https://devcenter.heroku.com/articles/getting-started-with-nodejs#deploy-the-app
