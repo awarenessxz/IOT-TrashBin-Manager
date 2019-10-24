@@ -26,8 +26,10 @@ IOT Network project on trash bin management incorporating proximity sensors
 1. git clone this repo
 2. `heroku login`
 3. `heroku create`
-4. `heroku buildpacks:set heroku/nodejs`
-5. `heroku buildpacks:set heroku/python`
+4. `heroku buildpacks:clear` --> if necessary
+4. `heroku buildpacks:set https://github.com/timanovsky/subdir-heroku-buildpack`
+4. `heroku buildpacks:add heroku/nodejs`
+5. `heroku buildpacks:add heroku/python`
 6. `git push heroku herokuHost:master`
 		- `git commit --allow-empty -m "Adjust buildpacks on Heroku"` --> might have to do this to push to heroku after editing buildpacks
 7. `heroku ps:scale web=1`
