@@ -8,7 +8,7 @@ router.get('/', async function(req, res, next) {
 	try {
 		// execute python script and extract output
 		let result = await py.runPythonScript('hello.py', '1', '2');
-		res.render('scripting', { 
+		res.render('pyScriptingTemplate', { 
 			title: 'Scripting',
 			data: result 
 		});

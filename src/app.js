@@ -4,10 +4,12 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+require('dotenv').config();								// Using dotenv for psql
 
 /* --- [ADD NEW PAGE - INCLUDE ROUTER HERE] --- */
 var indexRouter = require('./routes/index');
-var scriptingRouter = require('./routes/scripting');	// template for running python script
+var scriptingRouter = require('./routes/pyScriptingTemplate');	// template for running python script
+var psqlRouter = require('./routes/psqlTemplate');				// template for psql interaction
 var monitorRouter = require('./routes/monitor');
 var nearbyAppRouter = require('./routes/nearbyApp');
 
@@ -26,7 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 /* --- [ADD NEW PAGE - ADD THE ROUTER HERE]--- */
 app.use('/', indexRouter);
-app.use('/scripting', scriptingRouter); 				// template for running python script
+app.use('/pytemplate', scriptingRouter); 				// template for running python script
+app.use('/psqltemplate', psqlRouter); 					// template for interacting with psql
 app.use('/monitor', monitorRouter);
 app.use('/nearbyApp', nearbyAppRouter);
 
