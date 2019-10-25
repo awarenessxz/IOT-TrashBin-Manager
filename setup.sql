@@ -1,6 +1,6 @@
+DROP TRIGGER IF EXISTS on_recv_sensor ON SensorData;
 DROP TABLE IF EXISTS TrashBinInfo CASCADE;
 DROP TABLE IF EXISTS SensorData CASCADE;
-DROP TRIGGER IF EXISTS on_recv_sensor ON SensorData;
 
 CREATE TABLE TrashBinInfo (
 	bin_id varchar(100) PRIMARY KEY,
