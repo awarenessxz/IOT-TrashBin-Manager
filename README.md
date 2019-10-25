@@ -6,6 +6,8 @@ IOT Network project on trash bin management incorporating proximity sensors.
 ## Design
 ![Architecture](src/public/images/architecture.png) 
 
+*Note: The MQTT Broker can be a MQTT Service like CloudMQTT or a Raspberry Pi with Mosquitto installed on it or another other available MQTT Broker*
+
 ## Equipment 
 - Ultrasonic Sonic (HC-SR04)
 - Raspberry Pi 
@@ -67,7 +69,7 @@ We can either install Mosquitto on a machine/raspberry pi to use as our broker o
 1. [Install NodeJS](https://nodejs.org/en/).
 2. git clone this repo
 3. Ensure that python is installed.
-	- Install the required python libraries: `pip install -i requirements.txt` 
+	- Install the required python libraries: `pip install -r requirements.txt` 
 4. cd `src`
 4. Start up the database
 	- run `psql` terminal
