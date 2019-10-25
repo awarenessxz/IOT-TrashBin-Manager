@@ -27,7 +27,23 @@ We can either install Mosquitto on a machine/raspberry pi to use as our broker o
 - **Setting up CloudMQTT**
 	1. Go to [CloudMQTT](https://www.cloudmqtt.com/) to create an account.
 	2. Follow the procedure to create an instance. Obtain the important credentials: **server, user, password, port**
-	3. For python subscriber / publisher, refer to `sensor/sensor_mimic.py`
+	3. Python codes to connect to broker
+		```
+		broker_address = "server"
+		port = 14444
+		user = "user"
+		password = "password"
+		client = mqtt.Client()
+		client.on_connect = on_connect
+    	client.on_message = on_message
+		client.connect(broker_address, port=port, 60)
+		```
+	4. Nodejs codes to connect to broker
+		```
+		```
+
+
+	For python subscriber / publisher, refer to `sensor/sensor_mimic.py`
 		- replace **broker address, user, password, port** with the credentials obtains from cloudmqtt
 	4. For nodejs subscriber, refer to `src/lib/mqtt-subscriber.js`
 		- `var client  = mqtt.connect('mqtt://<user>:<password>@m11.cloudmqtt.com:10424');` -- use this to connect to cloudmqtt broker.
