@@ -34,6 +34,14 @@ The current deployment can be accessed from [https://sheltered-reaches-90818.her
 3. If you prefer to have a bash interaction. Use `heroku run bash` 
 
 # References
-- https://stackoverflow.com/questions/25834500/push-different-branch-to-heroku/25834522
-- https://devcenter.heroku.com/articles/getting-started-with-nodejs#deploy-the-app
-- https://github.com/timanovsky/subdir-heroku-buildpack
+- Heroku 
+	- https://stackoverflow.com/questions/25834500/push-different-branch-to-heroku/25834522
+- Buildpacks
+	- https://devcenter.heroku.com/articles/getting-started-with-nodejs#deploy-the-app
+	- https://github.com/timanovsky/subdir-heroku-buildpack
+- MQTT
+	- https://github.com/CloudMQTT/cloudmqtt-website/blob/master/views/docs-nodejs.md
+	- https://github.com/mcollina/mosca
+
+
+

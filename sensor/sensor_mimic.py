@@ -31,7 +31,8 @@ if __name__ == '__main__':
 	client.on_message = on_message
 
 	print("Connectin....")
-	client.connect("34.87.68.246", 1883, 60)
+	var client  = mqtt.connect('mqtt://gbqekcke:i5eXt5BTsRmK@farmer.cloudmqtt.com:14530');
+	client.connect("farmer.cloudmqtt.com", 1883, 60)
 	#client.loop_forever()
 
 	while True:
