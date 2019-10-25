@@ -35,3 +35,6 @@ IOT Network project on trash bin management incorporating proximity sensors
 	- https://medium.com/geoblinktech/evolution-of-calling-python-from-node-4369a84f22c7
 - Web Template
 	- https://github.com/uxcandy/Label-Free-Bootstrap-Admin-Template/tree/master/src
+- Integrating MQTT with Nodejs
+	- https://devblog.axway.com/apis/api-builder-and-mqtt-for-iot-part-1/
+	- https://medium.com/@alifabdullah/using-mqtt-protocol-with-node-js-f0eb8065b5b6
