@@ -1,12 +1,69 @@
 # IOT-TrashBin-Manager
-IOT Network project on trash bin management incorporating proximity sensors
+IOT Network project on trash bin management incorporating proximity sensors. 
 
 # Environment
+
+## Design
+![Architecture](src/public/images/architecture.png) 
+
+## Equipment 
+- Ultrasonic Sonic (HC-SR04)
+- Raspberry Pi 
+
+## Technologies
 - Express (Node.js web application framework)
 - Python 3
 - Postgresql 
+- Mosquitto / CloudMQTT
 
-# Local Setup
+# Setting up
+
+## 1) MQTT Broker
+
+We can either install Mosquitto on a machine/raspberry pi to use as our broker or we can use cloudmqtt which is a globally distributed MQTT broker.
+
+- **Setting up Mosquitto on Machine/Raspberry Pi**
+	1. Follow the steps in this [guide](http://www.steves-internet-guide.com/mosquitto-broker/)
+	2. Python codes to connect to broker
+		```python
+		broker_address = "server"
+		port = 1883
+		client = mqtt.Client()
+		client.on_connect = on_connect
+    	client.on_message = on_message
+		client.connect(broker_address, port=port, keepalive=60)
+		```
+	3. Nodejs codes to connect to broker
+		```nodejs
+		var client = mqtt.connect("mqtt://34.87.68.246", 1883);
+		```
+
+- **Setting up CloudMQTT**
+	1. Go to [CloudMQTT](https://www.cloudmqtt.com/) to create an account.
+	2. Follow the procedure to create an instance. Obtain the important credentials: **server, user, password, port**
+	3. Python codes to connect to broker
+		```python
+		broker_address = "server"
+		port = 14444
+		user = "user"
+		password = "password"
+		client = mqtt.Client()
+		client.on_connect = on_connect
+    	client.on_message = on_message
+		client.connect(broker_address, port=port, keepalive=60)
+		```
+	4. Nodejs codes to connect to broker
+		```nodejs
+		var client  = mqtt.connect('mqtt://<user>:<password>@m11.cloudmqtt.com:10424');
+		```
+
+## 2) MQTT Client (Subscriber/Publisher)
+
+1. `sensor/getSensorData.py` - MQTT Publisher script which sends data to the Broker. This script will be added into the Raspberry Pi with the Proximity sensor.
+2. `sensor/sensor_mimic.py` - MQTT Publisher script which mimics the sensors sending data to the broker for the purpose of testing.
+3. `src/lib/python/mqtt-subscribber.js` - MQTT Subscriber script which receive data from the Broker.
+
+## 3) Web Server 
 1. [Install NodeJS](https://nodejs.org/en/).
 2. git clone this repo
 3. Ensure that python is installed.
@@ -21,6 +78,10 @@ IOT Network project on trash bin management incorporating proximity sensors
 	- cd `src`
 	- Install the required node packages: `npm install`
 	- run the server: `node bin/www`
+
+# Hosting the Web Server on Heroku
+
+To host the webserver, refer to the `herokuHost` branch
 
 # IMPORTANT NOTES:
 1. Add python scripts into `lib/python` folder. 

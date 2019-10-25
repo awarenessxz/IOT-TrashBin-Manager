@@ -8,8 +8,7 @@ const pool = new Pool({
 
 function startSubscribing() {
 	//var client  = mqtt.connect('mqtt://<user>:<password>@m11.cloudmqtt.com:10424');
-	//var client = mqtt.connect("mqtt://34.87.68.246", 1883);
-	var client  = mqtt.connect('mqtt://gbqekcke:i5eXt5BTsRmK@farmer.cloudmqtt.com:14530');
+	var client = mqtt.connect("mqtt://34.87.68.246", 1883);	
 	// callback on client connect
 	client.on('connect', function () {
 		console.log('client connected');
