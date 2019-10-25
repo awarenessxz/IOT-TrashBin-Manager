@@ -81,7 +81,7 @@ We can either install Mosquitto on a machine/raspberry pi to use as our broker o
 
 # Hosting the Web Server on Heroku
 
-To host the webserver, refer to the `herokuHost` branch
+To host the webserver on Heroku, refer to folder `heroku-setup` in the `herokuHost` branch
 
 # IMPORTANT NOTES:
 1. Add python scripts into `lib/python` folder. 
@@ -99,3 +99,4 @@ To host the webserver, refer to the `herokuHost` branch
 - Integrating MQTT with Nodejs
 	- https://devblog.axway.com/apis/api-builder-and-mqtt-for-iot-part-1/
 	- https://medium.com/@alifabdullah/using-mqtt-protocol-with-node-js-f0eb8065b5b6
+	- https://techtutorialsx.com/2017/04/14/python-publishing-messages-to-mqtt-topic/
