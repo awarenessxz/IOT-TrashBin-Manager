@@ -4,7 +4,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-require('dotenv').config();								// Using dotenv for psql
+require('dotenv').config();										// Using dotenv for psql
 
 /* --- [ADD NEW PAGE - INCLUDE ROUTER HERE] --- */
 var indexRouter = require('./routes/index');
@@ -12,6 +12,10 @@ var scriptingRouter = require('./routes/pyScriptingTemplate');	// template for r
 var psqlRouter = require('./routes/psqlTemplate');				// template for psql interaction
 var monitorRouter = require('./routes/monitor');
 var nearbyAppRouter = require('./routes/nearbyApp');
+
+/* --- set up mqtt subscriber --- */
+var mqttSubscriber = require('./lib/mqtt-subscriber');	
+mqttSubscriber.startSubscribing(); 								// receive data from sensor and put into db
 
 var app = express();
 
