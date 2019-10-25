@@ -30,13 +30,13 @@ if __name__ == '__main__':
 	client = mqtt.Client()
 
 	# Set Address and Port
-	broker_address = "34.87.68.246"     
-	port = 1883											# Port 1883 default for MQTT Protocol
+	broker_address = "farmer.cloudmqtt.com"     
+	port = 14530										# Port 1883 default for MQTT Protocol
 
 	# Set password for CloudMQTT                               
-	#user = "gbqekcke"                           		# only for cloudmqtt
-	#password = "i5eXt5BTsRmK"                  		# only for cloudmqtt
-	#client.username_pw_set(user, password=password) 	# only for cloudmqtt
+	user = "gbqekcke"                           		# only for cloudmqtt
+	password = "i5eXt5BTsRmK"                  			# only for cloudmqtt
+	client.username_pw_set(user, password=password) 	# only for cloudmqtt
 
 	# Attach function to callback
 	client.on_connect = on_connect
