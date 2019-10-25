@@ -34,6 +34,7 @@ We can either install Mosquitto on a machine/raspberry pi to use as our broker o
 		user = "user"
 		password = "password"
 		client = mqtt.Client()
+		
 		client.on_connect = on_connect
     	client.on_message = on_message
 		client.connect(broker_address, port=port, 60)
