@@ -30,11 +30,6 @@ app.use(bodyParser.urlencoded({ extended: false }));	// Body Parser Init (For PO
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
-
 /* --- [ADD NEW PAGE - ADD THE ROUTER HERE]--- */
 app.use('/', indexRouter);
 app.use('/pytemplate', scriptingRouter); 				// template for running python script
