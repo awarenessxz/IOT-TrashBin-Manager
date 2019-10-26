@@ -4,8 +4,12 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var socket_io = require('socket.io');
 require('dotenv').config();										// Using dotenv for psql
+var app = express();
 
+var io = socket_io();
+app.io = io;
 /* --- [ADD NEW PAGE - INCLUDE ROUTER HERE] --- */
 var indexRouter = require('./routes/index');
 var scriptingRouter = require('./routes/pyScriptingTemplate');	// template for running python script
@@ -13,12 +17,11 @@ var psqlRouter = require('./routes/psqlTemplate');				// template for psql inter
 var binStatusRouter = require('./routes/binStatus');
 var monitorRouter = require('./routes/monitor');
 var nearbyAppRouter = require('./routes/nearbyApp');
+var historyRouter = require('./routes/history')(io);
 
 /* --- set up mqtt subscriber --- */
 var mqttSubscriber = require('./lib/mqtt-subscriber');	
 mqttSubscriber.startSubscribing(); 								// receive data from sensor and put into db
-
-var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -38,7 +41,7 @@ app.use('/psqltemplate', psqlRouter); 					// template for interacting with psql
 app.use('/binStatus', binStatusRouter);
 app.use('/monitor', monitorRouter);
 app.use('/nearbyApp', nearbyAppRouter);
-
+app.use('/history', historyRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
