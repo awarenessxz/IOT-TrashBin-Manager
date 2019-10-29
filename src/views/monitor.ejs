@@ -81,6 +81,14 @@
       // Get table
       var table = document.getElementById("monitorTable");
 
+      socket.on('disconnect', (reason) => {
+        if (reason === 'transport close') {
+          // the disconnection was initiated by the server, you need to reconnect manually
+          console.log("Web Server is down! Please refresh or wait for the server to be up");
+          socket.disconnect();
+        }
+      });
+
       // listening for live data
       socket.on("new_data", function(obj) {
         socket.io.opts.transports = ['polling', 'websocket'];
