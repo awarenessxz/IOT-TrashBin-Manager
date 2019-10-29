@@ -14,7 +14,7 @@ const query = client.query('LISTEN incoming_data');
 // database trigger activated!
 client.on('notification', async(data) => {
 	const obj = JSON.parse(data.payload);		// convert to javascript object
-	//console.log('row added!', payload);
+	//console.log('row added!', data.payload);
 	socketApi.updateUIData(obj);				// emit data to web front end
 });
 /**********************************************************/
@@ -26,7 +26,7 @@ const pool = new Pool({
 });
 
 /* SQL Query */
-var sql_query = 'SELECT * FROM SensorData ORDER BY dt DESC';
+var sql_query = `SELECT topic_id, distance, TO_CHAR(dt, 'Dy, DD Mon YYYY HH24:MI:SS') formatted_dt FROM SensorData ORDER BY dt DESC`;
 
 router.get('/', function(req, res, next) {
 	pool.query(sql_query, (err, data) => {
