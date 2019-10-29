@@ -13,6 +13,7 @@
     <!-- JavaScript for Interactivity -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
   
   </head>
   <body class="header-fixed">
@@ -54,7 +55,7 @@
                 <tr>
                   <td><%= data[i].topic_id%></td>
                   <td><%= data[i].distance%></td>
-                  <td><%= data[i].dt%></td>
+                  <td><%= data[i].formatted_dt%></td>
                 </tr>
                 <% } %>
               </tbody>
@@ -104,7 +105,7 @@
         // Add some text to the new cells:
         cell1.innerHTML = data.topic_id;
         cell2.innerHTML = data.distance;
-        cell3.innerHTML = data.dt;
+        cell3.innerHTML = moment(data.dt).format('ddd, DD MMM YYYY HH:mm:ss');
 
       });
     </script>
