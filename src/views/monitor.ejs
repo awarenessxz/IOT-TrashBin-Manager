@@ -41,7 +41,7 @@
             </div>
             <!-- put your stuff here -->
             <p>Live monitoring of data from the sensors</p>
-            <table class="table">
+            <table id="monitorTable" class="table">
               <thead class="table-info">
                 <tr>
                   <th scope="col">Topic</th>
@@ -73,5 +73,32 @@
 
     <!-- Additional Javascript -->
     <script src="/javascripts/label_template.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      /*var socket = io.connect('http://127.0.0.1:3000', {transports: ['websocket']});*/
+      const socket = io({ transports: ['websocket' ]});
+
+      // Get table
+      var table = document.getElementById("monitorTable");
+
+      // listening for live data
+      socket.on("new_data", function(obj) {
+        socket.io.opts.transports = ['polling', 'websocket'];
+
+        // get javascript object from string
+        var data = JSON.parse(obj.data);
+        // Create an empty <tr> element and add it to the 1st position of the table
+        var row = table.insertRow(1); 
+        // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+        var cell1 = row.insertCell(0); 
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        // Add some text to the new cells:
+        cell1.innerHTML = data.topic_id;
+        cell2.innerHTML = data.distance;
+        cell3.innerHTML = data.dt;
+
+      });
+    </script>
   </body>
 </html>

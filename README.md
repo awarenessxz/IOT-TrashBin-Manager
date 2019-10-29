@@ -102,3 +102,8 @@ To host the webserver on Heroku, refer to folder `heroku-setup` in the `herokuHo
 	- https://devblog.axway.com/apis/api-builder-and-mqtt-for-iot-part-1/
 	- https://medium.com/@alifabdullah/using-mqtt-protocol-with-node-js-f0eb8065b5b6
 	- https://techtutorialsx.com/2017/04/14/python-publishing-messages-to-mqtt-topic/
+- Real time update
+	- https://stackoverflow.com/questions/24609991/using-socket-io-in-express-4-and-express-generators-bin-www
+	- https://medium.com/@ederng/psql-event-triggers-in-node-js-ec27a0ba9baa
+	- https://codeforgeek.com/eventemitter-node-js/
+	- https://codeforgeek.com/real-time-app-socket-io/

@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS TrashBinInfo CASCADE;
-DROP TABLE IF EXISTS SensorData CASCADE;
 DROP TRIGGER IF EXISTS on_recv_sensor ON SensorData;
+DROP TABLE IF EXISTS SensorData CASCADE;
+DROP TABLE IF EXISTS TrashBinInfo CASCADE;
 DROP FUNCTION IF EXISTS notify_new_data;
 
 CREATE TABLE TrashBinInfo (
@@ -33,9 +33,9 @@ CREATE OR REPLACE FUNCTION notify_new_data() RETURNS TRIGGER AS $$
 	payload = json_build_object('table', TG_TABLE_NAME,
 		'action', TG_OP,
 		'data', row_to_json(record));
-	PERFORM pg_notify('events', payload::text);
+	PERFORM pg_notify('incoming_data', payload::text);
 
-	RETURN NULL;
+	RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
