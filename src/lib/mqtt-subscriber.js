@@ -12,12 +12,12 @@ function startSubscribing() {
 	var client  = mqtt.connect('mqtt://gbqekcke:i5eXt5BTsRmK@farmer.cloudmqtt.com:14530');
 	// callback on client connect
 	client.on('connect', function () {
-		console.log('client connected');
+		console.log('Server is connected to MQTT Broker. Subscribing info now...');
 		client.subscribe('bin/#')
 	});
 	// callback on receving message
 	client.on('message', function (topic, message) {
-		console.log('message received');
+		console.log('MQTT Subscriber: message received');
 
 		// prepare sql statement
 		sql_query = 'INSERT INTO SensorData VALUES($1, $2, NOW())';

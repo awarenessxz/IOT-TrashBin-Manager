@@ -9,10 +9,10 @@ import time
 		flags = A dictionary containing flags returned by the broker. Not used here
 		rc = 0 - OK
 			 1 - Connection refused, incorrect protocol version
-			 2 – Connection refused, invalid client identifier.
-			 3 – Connection refused, service not available.
-			 4 – Connection refused, bad user name and password. 
-			 5 – Connection refused, not authorized.
+			 2 - Connection refused, invalid client identifier
+			 3 - Connection refused, service not available
+			 4 - Connection refused, bad user name and password
+			 5 - Connection refused, not authorized
 '''
 def on_connect(client, userdata, flags, rc):
 	print("Connected with result code " + str(rc))
