@@ -42,6 +42,9 @@ The current deployment can be accessed from [https://sheltered-reaches-90818.her
 - MQTT
 	- https://github.com/CloudMQTT/cloudmqtt-website/blob/master/views/docs-nodejs.md
 	- https://github.com/mcollina/mosca
+- Socket.io
+	- https://robdodson.me/deploying-your-first-node-dot-js-and-socket-dot-io-app-to-heroku/
+	- https://devcenter.heroku.com/articles/node-websockets
 
 
 
