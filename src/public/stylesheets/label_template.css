@@ -310,7 +310,7 @@ button:not(:disabled),
   width: 17rem;
   min-width: 17rem;
   max-width: 17rem;
-  background: #fff; }
+  background: #fbfcfd; }
   .sidebar .sidebar-header {
     border-bottom: 1px solid #2c3744; }
   .sidebar .user-profile {
@@ -340,7 +340,7 @@ button:not(:disabled),
         position: sticky;
         top: 64px;
         display: block;
-        background: #fff;
+        background: #fbfcfd;
         /*margin: 15px 0px 0px 0px;*/
         padding: 10px 20px 10px 30px;
         font-size: 10px;
@@ -499,7 +499,7 @@ footer {
   background: #fff; }
 
 .page-content-wrapper {
-  background: #fbfcfd;
+  background: #fff;
   border-left: 1px solid #f2f4f9; }
 
 /*

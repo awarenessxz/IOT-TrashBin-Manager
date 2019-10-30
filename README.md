@@ -108,3 +108,5 @@ To host the webserver on Heroku, refer to folder `heroku-setup` in the `herokuHo
 	- https://medium.com/@ederng/psql-event-triggers-in-node-js-ec27a0ba9baa
 	- https://codeforgeek.com/eventemitter-node-js/
 	- https://codeforgeek.com/real-time-app-socket-io/
+- Trash bin icon
+	- https://www.flaticon.com/authors/smashicons
