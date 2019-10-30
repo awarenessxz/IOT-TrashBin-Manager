@@ -41,6 +41,22 @@
             </div>
             <!-- put your stuff here -->
             <p>Live display of whether selected bin is filled</p>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Bin_ID:</th>
+                  <th scope="col">Percentage filled:</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><%= data[0].bin_id %></td>
+                  <td><%= data[0].percent_filled %>%</td>
+                  <td>image</td>
+                </tr>
+              </tbody>
+            </table>
         </div>
         <!-- End of Content -->
 
