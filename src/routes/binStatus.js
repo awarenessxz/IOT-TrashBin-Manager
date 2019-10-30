@@ -28,6 +28,7 @@ FROM (
 	SELECT ROUND(AVG(distance)) as latest_avg_dist, tb.bin_id, tb.height
 	FROM SensorData sd JOIN TrashBinInfo tb
 	ON sd.topic_id = tb.bin_id
+	WHERE sd.dt >= NOW() - INTERVAL \'10 seconds\'
 	GROUP BY tb.bin_id, tb.height
 ) b`;
 
