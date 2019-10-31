@@ -24,7 +24,12 @@ var update_bins_height =
 
 // Process and compute bin's current fullness
 var compute_bins_info = 
-	`SELECT b.*, ROUND(((b.height - latest_avg_dist) / b.height) * 100) as percent_filled
+	`SELECT b.*, CASE
+	WHEN b.height = 0 
+	THEN 0
+	ELSE 
+		ROUND(((b.height - latest_avg_dist) / b.height) * 100) 
+	END AS percent_filled
 	FROM (
 		SELECT ROUND(AVG(distance)) as latest_avg_dist, tb.bin_id, tb.height
 		FROM (
@@ -43,8 +48,6 @@ function updateTrashBinLevel() {
 	pool.query(update_bins_height, (err, update) => {
 		if (err) {
 			console.log("[BIN_HEIGHT_ERR]", err, update);
-		} else {
-			console.log("[BIN] Successfully updated the height of bin(s).");
 		}
 	});
 };
@@ -64,7 +67,7 @@ function queryTrashBinLevel() {
 				} else {
 					var roundUp = (bins_info.rows[i].percent_filled - mod_remainder) + 20;
 					var roundDown = bins_info.rows[i].percent_filled - mod_remainder;
-					bins_info.rows[i].result = ((roundUp - bins_info.rows[i].percent_filled) >= (bins_info.rows[i].percent_filled - roundDown)) ? roundDown : roundUp;
+					bins_info.rows[i].result = ((roundUp - bins_info.rows[i].percent_filled) > (bins_info.rows[i].percent_filled - roundDown)) ? roundDown : roundUp;
 				}
 				
 				bins_info.rows[i].updated_dt = dateFormat(new Date(), 'ddd, dd mmm yyyy HH:MM:ss');
