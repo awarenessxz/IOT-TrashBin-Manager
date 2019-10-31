@@ -24,17 +24,17 @@ var update_bins_height =
 
 // Process and compute bin's current fullness
 var compute_bins_info = 
-`SELECT b.*, ROUND(((b.height - latest_avg_dist) / b.height) * 100) as percent_filled
-FROM (
-	SELECT ROUND(AVG(distance)) as latest_avg_dist, tb.bin_id, tb.height
+	`SELECT b.*, ROUND(((b.height - latest_avg_dist) / b.height) * 100) as percent_filled
 	FROM (
-		SELECT *, ROW_NUMBER() OVER (PARTITION BY topic_id ORDER BY dt desc) AS r 
-		FROM SensorData 
-		) sd JOIN TrashBinInfo tb
-	ON sd.topic_id = tb.bin_id
-	WHERE sd.r <= 5
-	GROUP BY tb.bin_id, tb.height
-) b`;
+		SELECT ROUND(AVG(distance)) as latest_avg_dist, tb.bin_id, tb.height
+		FROM (
+			SELECT *, ROW_NUMBER() OVER (PARTITION BY topic_id ORDER BY dt desc) AS r 
+			FROM SensorData 
+			) sd JOIN TrashBinInfo tb
+		ON sd.topic_id = tb.bin_id
+		WHERE sd.r <= 5
+		GROUP BY tb.bin_id, tb.height
+	) b`;
 
 /****************************************************************************/
 
