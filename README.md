@@ -108,3 +108,6 @@ To host the webserver on Heroku, refer to folder `heroku-setup` in the `herokuHo
 	- https://medium.com/@ederng/psql-event-triggers-in-node-js-ec27a0ba9baa
 	- https://codeforgeek.com/eventemitter-node-js/
 	- https://codeforgeek.com/real-time-app-socket-io/
+	- https://nodejs.org/de/docs/guides/timers-in-node/
+- Detecting Distance
+	- https://www.sensingthecity.com/detecting-a-full-garbage-bin-using-an-ultrasonic-distance-sensor/
