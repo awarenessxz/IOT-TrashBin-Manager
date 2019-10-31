@@ -91,7 +91,7 @@
       });
 
       // listening for live data
-      socket.on("new_data", function(obj) {
+      socket.on("new_monitor_data", function(obj) {
         socket.io.opts.transports = ['polling', 'websocket'];
 
         // get javascript object from string

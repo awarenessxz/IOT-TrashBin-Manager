@@ -52,18 +52,24 @@ if __name__ == '__main__':
 	# Codes for Publishing -- sending data
 	client.publish("bin/sensor1", 10)				# send data for empty bin (maximum height)
 	client.publish("bin/sensor2", 10)				# send data for empty bin (maximum height)
+	time.sleep(1)
 	# Send data continuously 
 	distance = 0;
+	counter = 5;									# ensures distance is consisten for 5 times
 	while True:
-		client.publish("bin/sensor1", 5)			# sensor stays consistent
+		#client.publish("bin/sensor1", 5)			# sensor stays consistent
 		client.publish("bin/sensor2", distance)		# sensor goes up to max then 0 then repeats
 
 		# update height
-		distance -= 2
-		if distance < 0:					
-			distance = 10							# hardcoded max as 10
+		if counter <= 0:
+			distance -= 2
+			if distance < 0:
+				distance = 10						# hardcoded at 10
+			counter = 5								# reset counter
+		else:
+			counter -= 1							
 
-		time.sleep(10)
+		time.sleep(1)
 
 
 

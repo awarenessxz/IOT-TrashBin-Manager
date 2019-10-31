@@ -13,8 +13,6 @@
     <!-- JavaScript for Interactivity -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
-    <meta http-equiv="refresh" content="10">
   
   </head>
   <body class="header-fixed">
@@ -43,7 +41,7 @@
             </div>
             <!-- put your stuff here -->
             <p>Live display of garbage level in trash bins</p>
-            <table class="table">
+            <table id="binTable" class="table">
               <thead>
                 <tr>
                   <th style="text-align: center; vertical-align: middle;" scope="col">Bin_ID:</th>
@@ -54,26 +52,9 @@
               </thead>
               <tbody>
                 <% for (var i = 0; i < data.length; i++) {
-                  var src = '';
-                  if (data[i].result == 0) {
-                    src = '/images/bin_0.PNG'
-                  }
-                  else if (data[i].result == 20) {
-                    src = '/images/bin_20.PNG'
-                  }
-                  else if (data[i].result == 40) {
-                    src = '/images/bin_40.PNG'
-                  }
-                  else if (data[i].result == 60) {
-                    src = '/images/bin_60.PNG'
-                  }
-                  else if (data[i].result == 80) {
-                    src = '/images/bin_80.PNG'
-                  }
-                  else if (data[i].result == 100) {
-                    src = '/images/bin_100.PNG'
-                  } %>
-                <tr>
+                  var src = '/images/bin_0.PNG';
+                %>
+                <tr id="<%= data[i].bin_id %>">
                   <td style="text-align: center; vertical-align: middle;"><%= data[i].bin_id %></td>
                   <td style="text-align: center; vertical-align: middle;"><%= data[i].percent_filled %>%</td>
                   <td style="text-align: center; vertical-align: middle;"><img src="<%= src %>"/></td>
@@ -96,5 +77,55 @@
 
     <!-- Additional Javascript -->
     <script src="/javascripts/label_template.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      /*var socket = io.connect('http://127.0.0.1:3000', {transports: ['websocket']});*/
+      const socket = io({ transports: ['websocket' ]});
+
+      socket.on('disconnect', (reason) => {
+        if (reason === 'transport close') {
+          // the disconnection was initiated by the server, you need to reconnect manually
+          console.log("Web Server is down! Please refresh or wait for the server to be up");
+          socket.disconnect();
+        }
+      });
+
+      // listening for live data
+      socket.on("new_bin_data", function(obj) {
+        socket.io.opts.transports = ['polling', 'websocket'];
+
+        // get javascript object from string
+        var data = JSON.parse(obj.data);
+
+        for (i = 0; i < data.length; i++) {
+          var row = document.getElementById(data[i].bin_id);
+          var percent_col = row.cells[1] 
+          var img_col = row.cells[2]
+          var img = img_col.getElementsByTagName('img')[0];
+          // update percentage
+          percent_col.innerHTML = data[i].percent_filled + "%";
+          // update image src
+          if (data[i].result == 0) {
+            img.src = '/images/bin_0.PNG'
+          }
+          else if (data[i].result == 20) {
+            img.src = '/images/bin_20.PNG'
+          }
+          else if (data[i].result == 40) {
+            img.src = '/images/bin_40.PNG'
+          }
+          else if (data[i].result == 60) {
+            img.src = '/images/bin_60.PNG'
+          }
+          else if (data[i].result == 80) {
+            img.src = '/images/bin_80.PNG'
+          }
+          else if (data[i].result == 100) {
+            img.src = '/images/bin_100.PNG'
+          }
+        }
+
+      });
+    </script>
   </body>
 </html>
