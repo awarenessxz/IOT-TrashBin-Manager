@@ -13,6 +13,8 @@
     <!-- JavaScript for Interactivity -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <meta http-equiv="refresh" content="10">
   
   </head>
   <body class="header-fixed">
@@ -40,7 +42,46 @@
               </div>
             </div>
             <!-- put your stuff here -->
-            <p>Live display of whether selected bin is filled</p>
+            <p>Live display of garbage level in trash bins</p>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th style="text-align: center; vertical-align: middle;" scope="col">Bin_ID:</th>
+                  <th style="text-align: center; vertical-align: middle;" scope="col">Percentage filled:</th>
+                  <th style="text-align: center; vertical-align: middle;" scope="col"></th>
+                  <th style="text-align: center; vertical-align: middle;" scope="col">Last updated:</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for (var i = 0; i < data.length; i++) {
+                  var src = '';
+                  if (data[i].result == 0) {
+                    src = '/images/bin_0.PNG'
+                  }
+                  else if (data[i].result == 20) {
+                    src = '/images/bin_20.PNG'
+                  }
+                  else if (data[i].result == 40) {
+                    src = '/images/bin_40.PNG'
+                  }
+                  else if (data[i].result == 60) {
+                    src = '/images/bin_60.PNG'
+                  }
+                  else if (data[i].result == 80) {
+                    src = '/images/bin_80.PNG'
+                  }
+                  else if (data[i].result == 100) {
+                    src = '/images/bin_100.PNG'
+                  } %>
+                <tr>
+                  <td style="text-align: center; vertical-align: middle;"><%= data[i].bin_id %></td>
+                  <td style="text-align: center; vertical-align: middle;"><%= data[i].percent_filled %>%</td>
+                  <td style="text-align: center; vertical-align: middle;"><img src="<%= src %>"/></td>
+                  <td style="text-align: center; vertical-align: middle;"><%= data[i].updated_dt %></td>
+                </tr>
+              <% } %>
+              </tbody>
+            </table>
         </div>
         <!-- End of Content -->
 
