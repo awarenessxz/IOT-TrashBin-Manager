@@ -91,7 +91,7 @@ To host the webserver on Heroku, refer to folder `heroku-setup` in the `herokuHo
 1. Templates
 	- Refer to `pyScriptingTemplate.js` and `pyScriptingTemplate.ejs` on how to interact with python script output
 	- Refer to `psqlTemplate.js` and `psqlTemplate.ejs` on how to interact with the database
-2. To add a new page, look at `app.js`, look for comment ADD NEW PAGE
+2. **When using a sensor, it is important to note that the database should have an initial reading of the empty bin so that the application knows what the maximum height of the bin is.**
 
 # Acknowledgement / Reference
 - Integrating Python with Nodejs
@@ -108,3 +108,8 @@ To host the webserver on Heroku, refer to folder `heroku-setup` in the `herokuHo
 	- https://medium.com/@ederng/psql-event-triggers-in-node-js-ec27a0ba9baa
 	- https://codeforgeek.com/eventemitter-node-js/
 	- https://codeforgeek.com/real-time-app-socket-io/
+	- https://nodejs.org/de/docs/guides/timers-in-node/
+- Detecting Distance
+	- https://www.sensingthecity.com/detecting-a-full-garbage-bin-using-an-ultrasonic-distance-sensor/
+- Trash bin icon
+	- https://www.flaticon.com/authors/smashicons

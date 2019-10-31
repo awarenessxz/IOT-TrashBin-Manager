@@ -40,7 +40,29 @@
               </div>
             </div>
             <!-- put your stuff here -->
-            <p>Live display of whether selected bin is filled</p>
+            <p>Live display of garbage level in trash bins</p>
+            <table id="binTable" class="table">
+              <thead>
+                <tr>
+                  <th style="text-align: center; vertical-align: middle;" scope="col">Bin_ID:</th>
+                  <th style="text-align: center; vertical-align: middle;" scope="col">Percentage filled:</th>
+                  <th style="text-align: center; vertical-align: middle;" scope="col"></th>
+                  <th style="text-align: center; vertical-align: middle;" scope="col">Last updated:</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for (var i = 0; i < data.length; i++) {
+                  var src = '/images/bin_0.PNG';
+                %>
+                <tr id="<%= data[i].bin_id %>">
+                  <td style="text-align: center; vertical-align: middle;"><%= data[i].bin_id %></td>
+                  <td style="text-align: center; vertical-align: middle;"><%= data[i].percent_filled %>%</td>
+                  <td style="text-align: center; vertical-align: middle;"><img src="<%= src %>"/></td>
+                  <td style="text-align: center; vertical-align: middle;">-</td>
+                </tr>
+              <% } %>
+              </tbody>
+            </table>
         </div>
         <!-- End of Content -->
 
@@ -55,5 +77,57 @@
 
     <!-- Additional Javascript -->
     <script src="/javascripts/label_template.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      /*var socket = io.connect('http://127.0.0.1:3000', {transports: ['websocket']});*/
+      const socket = io({ transports: ['websocket' ]});
+
+      socket.on('disconnect', (reason) => {
+        if (reason === 'transport close') {
+          // the disconnection was initiated by the server, you need to reconnect manually
+          console.log("Web Server is down! Please refresh or wait for the server to be up");
+          socket.disconnect();
+        }
+      });
+
+      // listening for live data
+      socket.on("new_bin_data", function(obj) {
+        socket.io.opts.transports = ['polling', 'websocket'];
+
+        // get javascript object from string
+        var data = JSON.parse(obj.data);
+
+        for (i = 0; i < data.length; i++) {
+          var row = document.getElementById(data[i].bin_id);
+          var percent_col = row.cells[1] 
+          var img_col = row.cells[2]
+          var date_col = row.cells[3]
+          var img = img_col.getElementsByTagName('img')[0];
+          // update percentage
+          percent_col.innerHTML = data[i].percent_filled + "%";
+          date_col.innerHTML = data[i].updated_dt;
+          // update image src
+          if (data[i].result == 0) {
+            img.src = '/images/bin_0.PNG'
+          }
+          else if (data[i].result == 20) {
+            img.src = '/images/bin_20.PNG'
+          }
+          else if (data[i].result == 40) {
+            img.src = '/images/bin_40.PNG'
+          }
+          else if (data[i].result == 60) {
+            img.src = '/images/bin_60.PNG'
+          }
+          else if (data[i].result == 80) {
+            img.src = '/images/bin_80.PNG'
+          }
+          else if (data[i].result == 100) {
+            img.src = '/images/bin_100.PNG'
+          }
+        }
+
+      });
+    </script>
   </body>
 </html>
