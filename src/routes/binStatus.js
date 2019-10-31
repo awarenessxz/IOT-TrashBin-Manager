@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+const dateFormat = require('dateformat');
+
 /* Getting information from database */
 const { Pool } = require('pg');
 const pool = new Pool({
@@ -10,7 +12,7 @@ const pool = new Pool({
 /* SQL Query */
 
 var update_bins_height = 
-// Internal height of bin = maximum distance measured by the sensor (assuming that sensor is properly attached to the bin cover).
+// Internal height of bin = maximum distance measured by the sensor (assuming that sensor is properly attached to the bin, and there is a point in time where the bin will be empty).
 `UPDATE TrashBinInfo tb
 SET height = m.max_dist
 FROM 
@@ -26,9 +28,12 @@ var compute_bins_info =
 `SELECT b.*, ROUND(((b.height - latest_avg_dist) / b.height) * 100) as percent_filled
 FROM (
 	SELECT ROUND(AVG(distance)) as latest_avg_dist, tb.bin_id, tb.height
-	FROM SensorData sd JOIN TrashBinInfo tb
+	FROM (
+		SELECT *, ROW_NUMBER() OVER (PARTITION BY topic_id ORDER BY dt desc) AS r 
+		FROM SensorData 
+		) sd JOIN TrashBinInfo tb
 	ON sd.topic_id = tb.bin_id
-	WHERE sd.dt >= NOW() - INTERVAL \'10 seconds\'
+	WHERE sd.r <= 5
 	GROUP BY tb.bin_id, tb.height
 ) b`;
 
@@ -53,8 +58,12 @@ router.get('/', function(req, res, next) {
 				if (mod_remainder == 0) {
 					bins_info.rows[i].result = bins_info.rows[i].percent_filled;
 				} else {
-					bins_info.rows[i].result = (bins_info.rows[i].percent_filled - mod_remainder) + 20;
+					var roundUp = (bins_info.rows[i].percent_filled - mod_remainder) + 20;
+					var roundDown = bins_info.rows[i].percent_filled - mod_remainder;
+					bins_info.rows[i].result = ((roundUp - bins_info.rows[i].percent_filled) >= (bins_info.rows[i].percent_filled - roundDown)) ? roundDown : roundUp;
 				}
+				
+				bins_info.rows[i].updated_dt = dateFormat(new Date(), 'ddd, dd mmm yyyy HH:MM:ss');
 			}
 
 			res.render('binStatus', {
