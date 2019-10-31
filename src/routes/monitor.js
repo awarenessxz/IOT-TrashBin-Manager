@@ -27,9 +27,9 @@ const pool = new Pool({
 
 /* SQL Query */
 var sql_query = 
-`SELECT topic_id, distance, TO_CHAR(dt, 'Dy, DD Mon YYYY HH24:MI:SS') formatted_dt 
-FROM SensorData 
-ORDER BY dt DESC`;
+	`SELECT topic_id, distance, TO_CHAR(dt, 'Dy, DD Mon YYYY HH24:MI:SS') formatted_dt 
+	FROM SensorData 
+	ORDER BY dt DESC`;
 
 router.get('/', function(req, res, next) {
 

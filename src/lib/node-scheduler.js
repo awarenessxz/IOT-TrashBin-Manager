@@ -75,6 +75,8 @@ function queryTrashBinLevel() {
 	});
 }
 
+/****************************************************************************/
+
 function scheduleTrashBinInfoUpdate(time) {
 	setInterval(updateTrashBinLevel, time);
 };

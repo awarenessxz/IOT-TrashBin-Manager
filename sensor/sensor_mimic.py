@@ -57,7 +57,7 @@ if __name__ == '__main__':
 		time.sleep(1)
 	# Send data continuously 
 	distance = 0;
-	counter = 10;									# ensures distance is consistent for 10 times
+	counter = 5;									# ensures distance is consistent for 5 times
 	while True:
 		client.publish("bin/sensor1", 5)			# sensor stays consistent
 		client.publish("bin/sensor2", distance)		# sensor goes up to max then 0 then repeats
@@ -67,7 +67,7 @@ if __name__ == '__main__':
 			distance -= 2
 			if distance < 0:
 				distance = 10						# hardcoded at 10
-			counter = 10							# reset counter 10
+			counter = 5								# reset counter 5
 		else:
 			counter -= 1							
 

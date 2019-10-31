@@ -58,7 +58,7 @@
                   <td style="text-align: center; vertical-align: middle;"><%= data[i].bin_id %></td>
                   <td style="text-align: center; vertical-align: middle;"><%= data[i].percent_filled %>%</td>
                   <td style="text-align: center; vertical-align: middle;"><img src="<%= src %>"/></td>
-                  <td style="text-align: center; vertical-align: middle;"><%= data[i].updated_dt %></td>
+                  <td style="text-align: center; vertical-align: middle;">-</td>
                 </tr>
               <% } %>
               </tbody>
@@ -101,9 +101,11 @@
           var row = document.getElementById(data[i].bin_id);
           var percent_col = row.cells[1] 
           var img_col = row.cells[2]
+          var date_col = row.cells[3]
           var img = img_col.getElementsByTagName('img')[0];
           // update percentage
           percent_col.innerHTML = data[i].percent_filled + "%";
+          date_col.innerHTML = data[i].updated_dt;
           // update image src
           if (data[i].result == 0) {
             img.src = '/images/bin_0.PNG'
