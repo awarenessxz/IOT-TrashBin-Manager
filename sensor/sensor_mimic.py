@@ -50,9 +50,21 @@ if __name__ == '__main__':
 	#client.loop_forever()
 
 	# Codes for Publishing -- sending data
+	client.publish("bin/sensor1", 10)				# send data for empty bin (maximum height)
+	client.publish("bin/sensor2", 10)				# send data for empty bin (maximum height)
+	# Send data continuously 
+	distance = 0;
 	while True:
-		client.publish("bin/sensor1", 5)
+		client.publish("bin/sensor1", 5)			# sensor stays consistent
+		client.publish("bin/sensor2", distance)		# sensor goes up to max then 0 then repeats
+
+		# update height
+		distance -= 2
+		if distance < 0:					
+			distance = 10							# hardcoded max as 10
+
 		time.sleep(10)
+
 
 
 
