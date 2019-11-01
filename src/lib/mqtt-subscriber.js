@@ -16,13 +16,25 @@ function startSubscribing() {
 	});
 	// callback on receving message
 	client.on('message', function (topic, message) {
-		console.log('MQTT Subscriber: message received');
+		console.log('MQTT Subscriber: message received: [' + topic.toString() + '] -- [' + message.toString() + ']');
+
+		var bin_id = topic.toString();
 
 		// prepare sql statement
-		sql_query = 'INSERT INTO SensorData VALUES($1, $2, NOW())';
+		var sql_query = "";
+		var topic_arr = topic.toString().split('/');
+
+		if (topic_arr.slice(-1)[0] === 'status') {
+			sql_query = 'UPDATE TrashBinInfo SET status = $2 WHERE bin_id = $1';
+			bin_id = topic_arr.slice(0, -1).join('/')
+		} else {
+			sql_query = 'INSERT INTO SensorData VALUES($1, $2, NOW())';
+		}
+
+		console.log(bin_id);
 
 		// Query
-		pool.query(sql_query, [topic.toString(), message.toString()], (err, data) => {
+		pool.query(sql_query, [bin_id, message.toString()], (err, data) => {
 			if (err) {
 				//console.log(err);
 			} else {
