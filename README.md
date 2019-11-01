@@ -113,3 +113,9 @@ To host the webserver on Heroku, refer to folder `heroku-setup` in the `herokuHo
 	- https://www.sensingthecity.com/detecting-a-full-garbage-bin-using-an-ultrasonic-distance-sensor/
 - Trash bin icon
 	- https://www.flaticon.com/authors/smashicons
+- Last Will / Connect / Disconnect
+	- https://mntolia.com/mqtt-last-will-testament-explained-with-examples/
+	- https://www.hivemq.com/blog/mqtt-essentials-part-9-last-will-and-testament/
+	- http://www.steves-internet-guide.com/checking-active-mqtt-client-connections/
+	- http://www.steves-internet-guide.com/mqtt-last-will-example/
+
