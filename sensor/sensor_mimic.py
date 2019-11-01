@@ -17,7 +17,7 @@ import time
 def on_connect(client, userdata, flags, rc):
 	print("Connected with result code " + str(rc))
 	if rc == 0:
-		client.publish("bin/sensor1/status", payload="online", qos=1, retain=True)
+		client.publish("bin/sensor1/status", payload="Online", qos=1, retain=True)		# can only set 1 last will for each client
 		#client.subscribe("bin/#")
 
 '''
@@ -45,7 +45,7 @@ if __name__ == '__main__':
 	client.on_message = on_message
 
 	# Set last will message
-	client.will_set("bin/sensor1/status", payload="offline", qos=1, retain=True)
+	client.will_set("bin/sensor1/status", payload="Offline", qos=1, retain=True)	# can only set 1 last will for each client
 
 	# Connect to the Broker
 	print("Connectin....")
