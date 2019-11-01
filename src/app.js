@@ -17,9 +17,8 @@ var nearbyAppRouter = require('./routes/nearbyApp');
 /* --- set up mqtt subscriber --- */
 var mqttSubscriber = require('./lib/mqtt-subscriber');	
 mqttSubscriber.startSubscribing(); 								// receive data from sensor and put into db
-/* --- set up bin prcocessing --- */
 var nodeScheduler = require('./lib/node-scheduler');	
-nodeScheduler.scheduleTrashBinInfoUpdate(5000); 				// receive data from sensor and put into db
+nodeScheduler.scheduleTrashBinLevelUpdate(5000); 				// update whenever running
 
 var app = express();
 

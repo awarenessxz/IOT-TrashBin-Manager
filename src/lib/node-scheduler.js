@@ -43,54 +43,49 @@ var compute_bins_info =
 
 /****************************************************************************/
 
-/* update trashbin level every 5 seconds */
+/* query for bin status every 5 seconds */
 function updateTrashBinLevel() {
 	pool.query(update_bins_height, (err, update) => {
 		if (err) {
 			console.log("[BIN_HEIGHT_ERR]", err, update);
-		}
-	});
-};
-
-/* query for bin status every 5 seconds */
-function queryTrashBinLevel() {
-	pool.query(compute_bins_info, (err, bins_info) => {
-		if (err) {
-			console.log("[BIN_COMPUTE_ERR]", err, bins_info);
 		} else {
-			for (var i = 0; i < bins_info.rows.length; i ++) {
-				bins_info.rows[i].result = 0;
-				var mod_remainder = bins_info.rows[i].percent_filled % 20;
-					
-				if (mod_remainder == 0) {
-					bins_info.rows[i].result = bins_info.rows[i].percent_filled;
-				} else {
-					var roundUp = (bins_info.rows[i].percent_filled - mod_remainder) + 20;
-					var roundDown = bins_info.rows[i].percent_filled - mod_remainder;
-					bins_info.rows[i].result = ((roundUp - bins_info.rows[i].percent_filled) > (bins_info.rows[i].percent_filled - roundDown)) ? roundDown : roundUp;
-				}
-				
-				bins_info.rows[i].updated_dt = dateFormat(new Date(), 'ddd, dd mmm yyyy HH:MM:ss');
-			}
-
-			socketApi.updateTrashBinLevelData(bins_info.rows);
+			console.log("[BIN] Successfully updated the height of bin(s).");
 		}
+
+		pool.query(compute_bins_info, (err, bins_info) => {
+			if (err) {
+				console.log("[BIN_COMPUTE_ERR]", err, bins_info);
+			} else {
+				for (var i = 0; i < bins_info.rows.length; i ++) {
+					bins_info.rows[i].result = 0;
+					var mod_remainder = bins_info.rows[i].percent_filled % 20;
+						
+					if (mod_remainder == 0) {
+						bins_info.rows[i].result = bins_info.rows[i].percent_filled;
+					} else {
+						var roundUp = (bins_info.rows[i].percent_filled - mod_remainder) + 20;
+						var roundDown = bins_info.rows[i].percent_filled - mod_remainder;
+						bins_info.rows[i].result = ((roundUp - bins_info.rows[i].percent_filled) > (bins_info.rows[i].percent_filled - roundDown)) ? roundDown : roundUp;
+					}
+					
+					bins_info.rows[i].updated_dt = dateFormat(new Date(), 'ddd, dd mmm yyyy HH:MM:ss');
+				}
+
+				socketApi.updateTrashBinLevelData(bins_info.rows);
+			}
+		});
 	});
 }
 
 /****************************************************************************/
 
-function scheduleTrashBinInfoUpdate(time) {
-	setInterval(updateTrashBinLevel, time);
-};
-
 function scheduleTrashBinLevelUpdate(time) {
 	setTimeout(function() {
-		setInterval(queryTrashBinLevel, time)
+		setInterval(updateTrashBinLevel, time);
 	}, 2000);
 };
 
-module.exports = { 
-	scheduleTrashBinInfoUpdate,
-	scheduleTrashBinLevelUpdate,
+module.exports = {
+	scheduleTrashBinLevelUpdate
+
 };
