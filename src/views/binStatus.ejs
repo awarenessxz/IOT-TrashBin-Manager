@@ -107,8 +107,8 @@
           var date_col = row.cells[4]
           var img = img_col.getElementsByTagName('img')[0];
 
-	  // update online status
-	  status_col.innerHTML = "online";
+          // update online status
+          status_col.innerHTML = data[i].status;
 
           // update percentage
           percent_col.innerHTML = data[i].percent_filled + "%";
