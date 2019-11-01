@@ -45,6 +45,7 @@
               <thead>
                 <tr>
                   <th style="text-align: center; vertical-align: middle;" scope="col">Bin_ID:</th>
+		  <th style="text-align: center; vertical-align: middle;" scope="col">Status:</th>
                   <th style="text-align: center; vertical-align: middle;" scope="col">Percentage filled:</th>
                   <th style="text-align: center; vertical-align: middle;" scope="col"></th>
                   <th style="text-align: center; vertical-align: middle;" scope="col">Last updated:</th>
@@ -56,7 +57,8 @@
                 %>
                 <tr id="<%= data[i].bin_id %>">
                   <td style="text-align: center; vertical-align: middle;"><%= data[i].bin_id %></td>
-                  <td style="text-align: center; vertical-align: middle;"><%= data[i].percent_filled %>%</td>
+		  <td style="text-align: center; vertical-align: middle;"><%= data[i].current_status %></td>
+		  <td style="text-align: center; vertical-align: middle;"><%= data[i].percent_filled %>%</td>
                   <td style="text-align: center; vertical-align: middle;"><img src="<%= src %>"/></td>
                   <td style="text-align: center; vertical-align: middle;">-</td>
                 </tr>
@@ -99,10 +101,15 @@
 
         for (i = 0; i < data.length; i++) {
           var row = document.getElementById(data[i].bin_id);
-          var percent_col = row.cells[1] 
-          var img_col = row.cells[2]
-          var date_col = row.cells[3]
+	  var status_col = row.cells[1]
+          var percent_col = row.cells[2] 
+          var img_col = row.cells[3]
+          var date_col = row.cells[4]
           var img = img_col.getElementsByTagName('img')[0];
+
+	  // update online status
+	  status_col.innerHTML = "online";
+
           // update percentage
           percent_col.innerHTML = data[i].percent_filled + "%";
           date_col.innerHTML = data[i].updated_dt;
