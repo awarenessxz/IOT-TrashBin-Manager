@@ -47,7 +47,7 @@ We can either install Mosquitto on a machine/raspberry pi to use as our broker o
 	3. Use the following codes to connect to the broker
 		- Python codes to connect to broker
 			```python
-			broker_address = "server"
+			broker_address = "something.cloudmqtt.com"
 			port = 14444
 			user = "user"
 			password = "password"
@@ -58,7 +58,7 @@ We can either install Mosquitto on a machine/raspberry pi to use as our broker o
 			```
 		- Nodejs codes to connect to broker
 			```nodejs
-			var client  = mqtt.connect('mqtt://<user>:<password>@m11.cloudmqtt.com:10424');
+			var client  = mqtt.connect('mqtt://<user>:<password>@<broker_address>:<port>');
 			```
 
 ## 2) MQTT Client (Subscriber/Publisher)
@@ -76,10 +76,9 @@ We can either install Mosquitto on a machine/raspberry pi to use as our broker o
 4. Start up the database
 	- run `psql` terminal
 	- create a file named `.env` in the current directory (src) and add the following in the file
-		`DATABASE URL=postgres://username:password@host address:port/database_name`
+		- `DATABASE URL=postgres://username:password@host address:port/database_name`
 	- in the psql terminal, **run `\i '[path_to_this_repo]/setup.sql'` to set up the database**
 5. Start the server
-	- cd `src`
 	- Install the required node packages: `npm install`
 	- run the server: `node bin/www`
 
@@ -91,7 +90,7 @@ To host the webserver on Heroku, refer to folder `heroku-setup` in the `herokuHo
 1. Templates
 	- Refer to `pyScriptingTemplate.js` and `pyScriptingTemplate.ejs` on how to interact with python script output
 	- Refer to `psqlTemplate.js` and `psqlTemplate.ejs` on how to interact with the database
-2. **When using a sensor, it is important to note that the database should have an initial reading of the empty bin so that the application knows what the maximum height of the bin is.**
+2. **When setting up the sensors and bin, we will have to manually insert the bin height into the database TrashBinInfo in order for sensor to detect the fullness.**
 
 # Reference
 - Integrating Python with Nodejs
