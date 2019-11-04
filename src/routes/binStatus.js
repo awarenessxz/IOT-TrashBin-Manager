@@ -9,7 +9,7 @@ const pool = new Pool({
 });
 
 /* SQL Query */
-var get_all_bins = `SELECT bin_id, 0 as percent_filled, 0 as result FROM TrashBinInfo ORDER BY bin_id`;
+var get_all_bins = `SELECT bin_id, 'Offline' as current_status, 0 as percent_filled, 0 as result FROM TrashBinInfo ORDER BY bin_id`;
 
 router.get('/', function(req, res, next) {
 	pool.query(get_all_bins, (err, bins_info) => {

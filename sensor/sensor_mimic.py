@@ -16,7 +16,9 @@ import time
 '''
 def on_connect(client, userdata, flags, rc):
 	print("Connected with result code " + str(rc))
-	client.subscribe("bin/#")
+	if rc == 0:
+		client.publish("bin/sensor1/status", payload="Online", qos=1, retain=True)		# can only set 1 last will for each client
+		#client.subscribe("bin/#")
 
 '''
 	callback whenever a new message comes in
@@ -42,11 +44,15 @@ if __name__ == '__main__':
 	client.on_connect = on_connect
 	client.on_message = on_message
 
+	# Set last will message
+	client.will_set("bin/sensor1/status", payload="Offline", qos=1, retain=True)	# can only set 1 last will for each client
+
 	# Connect to the Broker
 	print("Connectin....")
 	client.connect(broker_address, port=port, keepalive=60)
 
 	# Codes for Subscribing -- waiting for data
+	client.loop_start()
 	#client.loop_forever()
 
 	# Codes for Publishing -- sending data

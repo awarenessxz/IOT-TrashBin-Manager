@@ -8,7 +8,8 @@ BROKER_IP = "34.87.68.246"					#IP address of mqtt broker that the sensor data w
 
 def on_connect(client, userdata, flags, rc):
   print("Connected with result code " + str(rc))
-  client.subscribe("hello/#")
+  #client.subscribe("bin/#")
+  client.publish("bin/sensor1/status", payload="Online", qos=1, retain=True)
 
 def on_message(client, userdata, msg):
   print(ms.topic + " " + str(msg.payload))
@@ -52,7 +53,9 @@ if __name__ == '__main__':
   client = mqtt.Client()
   client.on_connect = on_connect
   client.on_message = on_message
+  client.will_set("bin/sensor1/status", payload="Offline", qos=1, retain=True)
   print("Connecting to broker on IP " + BROKER_IP)
   client.connect(BROKER_IP, 1883, 60)
-  
+  client.loop_start()
+
   run_sensor(client)
