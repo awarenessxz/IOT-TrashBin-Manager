@@ -11,6 +11,7 @@ var indexRouter = require('./routes/index');
 var scriptingRouter = require('./routes/pyScriptingTemplate');	// template for running python script
 var psqlRouter = require('./routes/psqlTemplate');				// template for psql interaction
 var binStatusRouter = require('./routes/binStatus');
+var manageBinRouter = require('./routes/manageBin');
 var monitorRouter = require('./routes/monitor');
 var nearbyAppRouter = require('./routes/nearbyApp');
 
@@ -38,6 +39,7 @@ app.use('/', indexRouter);
 app.use('/pytemplate', scriptingRouter); 				// template for running python script
 app.use('/psqltemplate', psqlRouter); 					// template for interacting with psql
 app.use('/binStatus', binStatusRouter);
+app.use('/manageBin', manageBinRouter);
 app.use('/monitor', monitorRouter);
 app.use('/nearbyApp', nearbyAppRouter);
 
