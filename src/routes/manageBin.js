@@ -23,14 +23,25 @@ router.post('/', function(req, res, next) {
 	
 	if (req.body.update) {
 		
-		// validation
+		// validation (REQUIRED)
+		var bid = req.body.original_bid;
+		var new_bid = req.body.bid;
+		var new_height = req.body.bheight;
 
-		// 
+		// prepare sql query
+		update_sql_query = `UPDATE TrashBinInfo SET bin_id=$1, height=$2 WHERE bin_id=$3`;
 
+		// Query
+		pool.query(update_sql_query, [new_bid, new_height, bid], (err, data) => {
+			if (err) {
+				// show error message
+				console.log(err);
+			} else {
+				console.log("HERE");
+				res.redirect("/manageBin");
+			}
+		});
 	}
-
-
-	console.log(req.body);
 });
 
 module.exports = router;
