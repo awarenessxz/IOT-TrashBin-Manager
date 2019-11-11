@@ -19,12 +19,6 @@ CREATE TABLE SensorData (
 	PRIMARY KEY(topic_id, dt)
 );
 
--- Inserting dummy data
-INSERT INTO TrashBinInfo VALUES ('bin/sensor1', 'Offline', 'lat lang', 24);
-INSERT INTO TrashBinInfo VALUES ('bin/sensor2', 'Offline', 'lat lang', 24);
-INSERT INTO TrashBinInfo VALUES ('bin/sensor3', 'Offline', 'lat lang', 30);
-INSERT INTO TrashBinInfo VALUES ('bin/sensor4', 'Offline', 'lat lang', 30);
-
 -- Creating stored procedure for pg_notify
 CREATE OR REPLACE FUNCTION notify_new_data() RETURNS TRIGGER AS $$
   DECLARE
@@ -46,3 +40,9 @@ AFTER INSERT
 ON SensorData
 FOR EACH ROW
 	EXECUTE PROCEDURE notify_new_data();
+
+-- Inserting dummy data
+INSERT INTO TrashBinInfo VALUES ('bin/sensor1', 'Offline', 'lat lang', 24);
+INSERT INTO TrashBinInfo VALUES ('bin/sensor2', 'Offline', 'lat lang', 24);
+INSERT INTO TrashBinInfo VALUES ('bin/sensor3', 'Offline', 'lat lang', 30);
+INSERT INTO TrashBinInfo VALUES ('bin/sensor4', 'Offline', 'lat lang', 30);
