@@ -46,3 +46,4 @@ INSERT INTO TrashBinInfo VALUES ('bin/sensor1', 'Offline', 'lat lang', 24);
 INSERT INTO TrashBinInfo VALUES ('bin/sensor2', 'Offline', 'lat lang', 24);
 INSERT INTO TrashBinInfo VALUES ('bin/sensor3', 'Offline', 'lat lang', 30);
 INSERT INTO TrashBinInfo VALUES ('bin/sensor4', 'Offline', 'lat lang', 30);
+INSERT INTO TrashBinInfo VALUES ('bin/sensor5', 'Offline', 'lat lang', 30);
