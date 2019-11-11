@@ -20,7 +20,16 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-	// Handle redirection
+	
+	if (req.body.update) {
+		
+		// validation
+
+		// 
+
+	}
+
+
 	console.log(req.body);
 });
 
