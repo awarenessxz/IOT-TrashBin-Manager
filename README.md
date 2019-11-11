@@ -20,13 +20,31 @@ IOT Network project on trash bin management incorporating proximity sensors.
 
 # Setting up
 
-## 1) MQTT Broker
+## 1) MQTT Client (Subscriber/Publisher)
+
+In this project, there are two main MQTT client namely "Raspberry Pi with Proximity Sensor" and "Web Server". The Raspberry Pi will be publishing the sensor data to the MQTT broker and the Web Server will be subscribing to the MQTT broker for the sensor data.
+
+**Raspberry Pi with Proximity Sensor**
+1. `sensor/getSensorData.py` - MQTT Publisher script which sends data to the Broker. This script will be added into the Raspberry Pi with the Proximity sensor. **Update the codes here if there are any changes to the MQTT broker's address.**
+1. To set up the Raspberry pi with proximity sensor, connect the following pins from the pi to the sensor
+	- 5V from Pi to VCC 
+	- Ground from Pi to GND
+	- GPIO from Pi to Trig
+	- GPIO from Pi to Echo
+
+**Web Server**
+1. `src/lib/mqtt-subscribber.js` - MQTT Subscriber script which the web server uses to receive data from the Broker. **Update the codes here if there are any changes to the MQTT broker's address.**
+
+**Testing**
+1. `sensor/sensor_mimic.py` - MQTT Publisher script which mimics the sensors sending data to the broker for the purpose of testing.
+
+## 2) MQTT Broker
 
 We can either install Mosquitto on a machine/raspberry pi to use as our broker or we can use cloudmqtt which is a globally distributed MQTT broker.
 
 - **Setting up Mosquitto on Machine/Raspberry Pi**
 	1. Follow the steps in this [guide](http://www.steves-internet-guide.com/mosquitto-broker/)
-	2. Use the following codes to connect to the broker
+	2. Edit the following codes in all the MQTT Client above to connect to the broker
 		- Python codes to connect to broker
 			```python
 			broker_address = "server"
@@ -44,7 +62,7 @@ We can either install Mosquitto on a machine/raspberry pi to use as our broker o
 - **Setting up CloudMQTT**
 	1. Go to [CloudMQTT](https://www.cloudmqtt.com/) to create an account.
 	2. Follow the procedure to create an instance. Obtain the important credentials: **server, user, password, port**
-	3. Use the following codes to connect to the broker
+	3. Edit the following codes in all the MQTT Client above to connect to the broker
 		- Python codes to connect to broker
 			```python
 			broker_address = "something.cloudmqtt.com"
@@ -60,12 +78,6 @@ We can either install Mosquitto on a machine/raspberry pi to use as our broker o
 			```nodejs
 			var client  = mqtt.connect('mqtt://<user>:<password>@<broker_address>:<port>');
 			```
-
-## 2) MQTT Client (Subscriber/Publisher)
-
-1. `sensor/getSensorData.py` - MQTT Publisher script which sends data to the Broker. This script will be added into the Raspberry Pi with the Proximity sensor.
-2. `sensor/sensor_mimic.py` - MQTT Publisher script which mimics the sensors sending data to the broker for the purpose of testing.
-3. `src/lib/mqtt-subscribber.js` - MQTT Subscriber script which the web server uses to receive data from the Broker.
 
 ## 3) Web Server 
 1. [Install NodeJS](https://nodejs.org/en/).
@@ -92,7 +104,7 @@ To host the webserver on Heroku, refer to folder `heroku-setup` in the `herokuHo
 	- Refer to `psqlTemplate.js` and `psqlTemplate.ejs` on how to interact with the database
 2. **When setting up the sensors and bin, we will have to manually insert the bin height into the database TrashBinInfo in order for sensor to detect the fullness.**
 
-# Reference
+# Acknowledgement / Reference
 - Integrating Python with Nodejs
 	- https://www.freecodecamp.org/news/how-to-integrate-a-python-ruby-php-shell-script-with-node-js-using-child-process-spawn-e26ca3268a11/
 	- https://medium.com/geoblinktech/evolution-of-calling-python-from-node-4369a84f22c7
