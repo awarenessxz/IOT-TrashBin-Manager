@@ -79,18 +79,19 @@ We can either install Mosquitto on a machine/raspberry pi to use as our broker o
 			var client  = mqtt.connect('mqtt://<user>:<password>@<broker_address>:<port>');
 			```
 
-## 3) Web Server 
+## 3) Web Server + Database
 1. [Install NodeJS](https://nodejs.org/en/).
-2. git clone this repo and cd into repo.
-3. Ensure that python is installed.
+1. [Install PostgreSQL](https://www.postgresql.org/).
+1. git clone this repo and cd into repo.
+1. Ensure that python is installed.
 	- Install the required python libraries: `pip install -r requirements.txt` 
-4. cd `src`
-4. Start up the database
-	- run `psql` terminal
+1. cd `src`
+1. Start up the database
+	- Start up `psql` terminal
 	- create a file named `.env` in the current directory (src) and add the following in the file
 		- `DATABASE URL=postgres://username:password@host address:port/database_name`
 	- in the psql terminal, **run `\i '[path_to_this_repo]/setup.sql'` to set up the database**
-5. Start the server
+1. Start the server
 	- Install the required node packages: `npm install`
 	- run the server: `node bin/www`
 
@@ -102,7 +103,7 @@ To host the webserver on Heroku, refer to folder `heroku-setup` in the `herokuHo
 1. Templates
 	- Refer to `pyScriptingTemplate.js` and `pyScriptingTemplate.ejs` on how to interact with python script output
 	- Refer to `psqlTemplate.js` and `psqlTemplate.ejs` on how to interact with the database
-2. **When setting up the sensors and bin, we will have to manually insert the bin height into the database TrashBinInfo in order for sensor to detect the fullness.**
+1. **When setting up the sensors and bin, we will have to manually insert the bin height into the database TrashBinInfo in order for sensor to detect the fullness.**
 
 # Acknowledgement / Reference
 - Integrating Python with Nodejs
