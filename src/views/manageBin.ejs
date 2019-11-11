@@ -91,15 +91,15 @@
           <div class="modal-body">
             <form action="/manageBin" method="post">
               <div class="form-group">
-                <label for="bin_id">Bin ID</label>
-                <input class="form-control" name="bin_id" id="bin_id" placeholder="bin/sensor1">
+                <label for="bid">Bin ID</label>
+                <input type="text" class="form-control" name="bid" id="bid" placeholder="bin/sensor1">
                 <small id="idHelp" class="form-text text-muted">Bin ID will be used as the topic that the sensor will be publishing to</small>
               </div>
               <div class="form-group">
-                <label for="bin_height">Height</label>
-                <input class="form-control" name="bin_height" id="bin_height" placeholder="50">
+                <label for="bheight">Height</label>
+                <input type="number" class="form-control" name="bheight" id="bheight" placeholder="50">
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" name="add" value="add" class="btn btn-primary">Submit</button>
             </form>
           </div>
           <div class="modal-footer">

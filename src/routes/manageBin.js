@@ -22,7 +22,6 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
 	
 	if (req.body.update) {
-		
 		// validation (REQUIRED)
 		var bid = req.body.original_bid;
 		var new_bid = req.body.bid;
@@ -37,7 +36,23 @@ router.post('/', function(req, res, next) {
 				// show error message
 				console.log(err);
 			} else {
-				console.log("HERE");
+				res.redirect("/manageBin");
+			}
+		});
+	} else if (req.body.add) {
+		// validation (REQUIRED)
+		var new_bid = req.body.bid;
+		var new_height = req.body.bheight;
+
+		// prepare sql query
+		insert_sql_query = `INSERT INTO TrashBinInfo VALUES($1, 'Offline', 'lat long', $2)`;
+
+		// Query
+		pool.query(insert_sql_query, [new_bid, new_height], (err, data) => {
+			if (err) {
+				// show error message
+				console.log(err);
+			} else {
 				res.redirect("/manageBin");
 			}
 		});
