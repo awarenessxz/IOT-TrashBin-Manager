@@ -24,19 +24,19 @@ IOT Network project on trash bin management incorporating proximity sensors.
 
 In this project, there are two main MQTT client namely "Raspberry Pi with Proximity Sensor" and "Web Server". The Raspberry Pi will be publishing the sensor data to the MQTT broker and the Web Server will be subscribing to the MQTT broker for the sensor data.
 
-**Raspberry Pi with Proximity Sensor**
-1. `sensor/getSensorData.py` - MQTT Publisher script which sends data to the Broker. This script will be added into the Raspberry Pi with the Proximity sensor. **Update the codes here if there are any changes to the MQTT broker's address.**
-1. To set up the Raspberry pi with proximity sensor, connect the following pins from the pi to the sensor
-	- 5V from Pi to VCC 
-	- Ground from Pi to GND
-	- GPIO from Pi to Trig
-	- GPIO from Pi to Echo
+- **Raspberry Pi with Proximity Sensor**
+	1. `sensor/getSensorData.py` - MQTT Publisher script which sends data to the Broker. This script will be added into the Raspberry Pi with the Proximity sensor. **Update the codes here if there are any changes to the MQTT broker's address.**
+	1. To set up the Raspberry pi with proximity sensor, connect the following pins from the pi to the sensor
+		- 5V from Pi to VCC 
+		- Ground from Pi to GND
+		- GPIO from Pi to Trig
+		- GPIO from Pi to Echo
 
-**Web Server**
-1. `src/lib/mqtt-subscribber.js` - MQTT Subscriber script which the web server uses to receive data from the Broker. **Update the codes here if there are any changes to the MQTT broker's address.**
+- **Web Server**
+	1. `src/lib/mqtt-subscribber.js` - MQTT Subscriber script which the web server uses to receive data from the Broker. **Update the codes here if there are any changes to the MQTT broker's address.**
 
-**Testing**
-1. `sensor/sensor_mimic.py` - MQTT Publisher script which mimics the sensors sending data to the broker for the purpose of testing.
+- **Testing**
+	1. `sensor/sensor_mimic.py` - MQTT Publisher script which mimics the sensors sending data to the broker for the purpose of testing.
 
 ## 2) MQTT Broker
 
