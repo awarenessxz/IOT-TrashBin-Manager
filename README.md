@@ -122,6 +122,7 @@ To host the webserver on Heroku, refer to folder `heroku-setup` in the `herokuHo
 	- https://nodejs.org/de/docs/guides/timers-in-node/
 - Detecting Distance
 	- https://www.sensingthecity.com/detecting-a-full-garbage-bin-using-an-ultrasonic-distance-sensor/
+	- https://www.hackster.io/arbazhussain/distance-calculation-with-ultrasonic-sensor-26d63e
 - Trash bin icon
 	- https://www.flaticon.com/authors/smashicons
 - Last Will / Connect / Disconnect
