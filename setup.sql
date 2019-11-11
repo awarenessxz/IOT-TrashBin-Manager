@@ -20,10 +20,10 @@ CREATE TABLE SensorData (
 );
 
 -- Inserting dummy data
-INSERT INTO TrashBinInfo VALUES ('bin/sensor1', 'offline', 'lat lang', 24);
-INSERT INTO TrashBinInfo VALUES ('bin/sensor2', 'offline', 'lat lang', 24);
-INSERT INTO TrashBinInfo VALUES ('bin/sensor3', 'offline', 'lat lang', 30);
-INSERT INTO TrashBinInfo VALUES ('bin/sensor4', 'offline', 'lat lang', 30);
+INSERT INTO TrashBinInfo VALUES ('bin/sensor1', 'Offline', 'lat lang', 24);
+INSERT INTO TrashBinInfo VALUES ('bin/sensor2', 'Offline', 'lat lang', 24);
+INSERT INTO TrashBinInfo VALUES ('bin/sensor3', 'Offline', 'lat lang', 30);
+INSERT INTO TrashBinInfo VALUES ('bin/sensor4', 'Offline', 'lat lang', 30);
 
 -- Creating stored procedure for pg_notify
 CREATE OR REPLACE FUNCTION notify_new_data() RETURNS TRIGGER AS $$
