@@ -42,7 +42,8 @@ def run_sensor(client):
 
     if distance > 2 and distance < 400:      #Check whether the distance is within range
       print "Distance:", distance - 0.5,"cm"  #Print distance with 0.5 cm calibration
-      client.publish("hello/test", distance-0.5)
+      #client.publish("hello/test", distance-0.5)
+      client.publish("bin/sensor1", distance-0.5)
  
     else:
       print "Out Of Range"                   #Display out of range
