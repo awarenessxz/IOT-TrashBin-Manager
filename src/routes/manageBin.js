@@ -27,35 +27,47 @@ router.post('/', function(req, res, next) {
 		var new_bid = req.body.bid;
 		var new_height = req.body.bheight;
 
-		// prepare sql query
-		update_sql_query = `UPDATE TrashBinInfo SET bin_id=$1, height=$2 WHERE bin_id=$3`;
+		if (new_bid && new_height) {
+			// prepare sql query
+			update_sql_query = `UPDATE TrashBinInfo SET bin_id=$1, height=$2 WHERE bin_id=$3`;
 
-		// Query
-		pool.query(update_sql_query, [new_bid, new_height, bid], (err, data) => {
-			if (err) {
-				// show error message
-				console.log(err);
-			} else {
-				res.redirect("/manageBin");
-			}
-		});
+			// Query
+			pool.query(update_sql_query, [new_bid, new_height, bid], (err, data) => {
+				if (err) {
+					req.flash('error', 'ERROR: ' + err["detail"]);
+					res.status(err.status || 500).redirect('back');
+				} else {
+					req.flash('success', 'Successfully submitted Request.');
+					res.status(200).redirect('/manageBin');
+				}
+			});
+		} else {
+			req.flash('error', 'ERROR! Please do not leave blank.');
+			res.status(403).redirect('back');
+		}
 	} else if (req.body.add) {
 		// validation (REQUIRED)
 		var new_bid = req.body.bid;
 		var new_height = req.body.bheight;
 
-		// prepare sql query
-		insert_sql_query = `INSERT INTO TrashBinInfo VALUES($1, 'Offline', 'lat long', $2)`;
+		if (new_bid && new_height) {
+			// prepare sql query
+			insert_sql_query = `INSERT INTO TrashBinInfo VALUES($1, 'Offline', 'lat long', $2)`;
 
-		// Query
-		pool.query(insert_sql_query, [new_bid, new_height], (err, data) => {
-			if (err) {
-				// show error message
-				console.log(err);
-			} else {
-				res.redirect("/manageBin");
-			}
-		});
+			// Query
+			pool.query(insert_sql_query, [new_bid, new_height], (err, data) => {
+				if (err) {
+					req.flash('error', 'ERROR! ' + err["detail"]);
+					res.status(err.status || 500).redirect('back');
+				} else {
+					req.flash('success', 'Trash Bin "' + new_bid + '" with height ' + new_height + ' added successfully');
+					res.status(200).redirect('/manageBin');
+				}
+			});
+		} else {
+			req.flash('error', 'ERROR! Please do not leave blank.');
+			res.status(403).redirect('back');
+		}
 	}
 });
 
