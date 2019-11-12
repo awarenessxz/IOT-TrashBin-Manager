@@ -22,11 +22,12 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
 	
 	if (req.body.update) {
-		// validation (REQUIRED)
+		// parse value
 		var bid = req.body.original_bid;
 		var new_bid = req.body.bid;
 		var new_height = req.body.bheight;
 
+		// check not empty
 		if (new_bid && new_height) {
 			// prepare sql query
 			update_sql_query = `UPDATE TrashBinInfo SET bin_id=$1, height=$2 WHERE bin_id=$3`;
@@ -37,7 +38,7 @@ router.post('/', function(req, res, next) {
 					req.flash('error', 'ERROR: ' + err["detail"]);
 					res.status(err.status || 500).redirect('back');
 				} else {
-					req.flash('success', 'Successfully submitted Request.');
+					req.flash('success', 'Trash Bin "' + bid + '" has been updated to "' + new_bid + '" with height ' + new_height);
 					res.status(200).redirect('/manageBin');
 				}
 			});
@@ -46,10 +47,11 @@ router.post('/', function(req, res, next) {
 			res.status(403).redirect('back');
 		}
 	} else if (req.body.add) {
-		// validation (REQUIRED)
+		// parse value
 		var new_bid = req.body.bid;
 		var new_height = req.body.bheight;
 
+		// check not empty
 		if (new_bid && new_height) {
 			// prepare sql query
 			insert_sql_query = `INSERT INTO TrashBinInfo VALUES($1, 'Offline', 'lat long', $2)`;
@@ -60,7 +62,7 @@ router.post('/', function(req, res, next) {
 					req.flash('error', 'ERROR! ' + err["detail"]);
 					res.status(err.status || 500).redirect('back');
 				} else {
-					req.flash('success', 'Trash Bin "' + new_bid + '" with height ' + new_height + ' added successfully');
+					req.flash('success', 'Trash Bin "' + new_bid + '" with height ' + new_height + ' has been added successfully.');
 					res.status(200).redirect('/manageBin');
 				}
 			});
@@ -68,6 +70,24 @@ router.post('/', function(req, res, next) {
 			req.flash('error', 'ERROR! Please do not leave blank.');
 			res.status(403).redirect('back');
 		}
+	} else if (req.body.remove) {
+		// parse value
+		var bid = req.body.original_bid;
+
+		// prepare sql query
+		remove_sql_query = "DELETE FROM TrashBinInfo WHERE bin_id=$1"
+
+		// Query
+		pool.query(remove_sql_query, [bid], (err, data) => {
+			if (err) {
+				req.flash('error', 'ERROR! ' + err["detail"]);
+				res.status(err.status || 500).redirect('back');
+			} else {
+				req.flash('success', 'Trash Bin "' + bid + ' has been removed successfully.');
+				res.status(200).redirect('/manageBin');
+			}
+		});
+
 	}
 });
 
