@@ -1,7 +1,9 @@
 var createError = require('http-errors');
 var express = require('express');
+var flash = require('express-flash');
 var path = require('path');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('dotenv').config();										// Using dotenv for psql
@@ -11,6 +13,7 @@ var indexRouter = require('./routes/index');
 var scriptingRouter = require('./routes/pyScriptingTemplate');	// template for running python script
 var psqlRouter = require('./routes/psqlTemplate');				// template for psql interaction
 var binStatusRouter = require('./routes/binStatus');
+var manageBinRouter = require('./routes/manageBin');
 var monitorRouter = require('./routes/monitor');
 var nearbyAppRouter = require('./routes/nearbyApp');
 
@@ -30,7 +33,9 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));	// Body Parser Init (For POST methods)
-app.use(cookieParser());
+app.use(cookieParser('secret'));
+app.use(session({cookie: { maxAge: 60000 }}));
+app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 
 /* --- [ADD NEW PAGE - ADD THE ROUTER HERE]--- */
@@ -38,6 +43,7 @@ app.use('/', indexRouter);
 app.use('/pytemplate', scriptingRouter); 				// template for running python script
 app.use('/psqltemplate', psqlRouter); 					// template for interacting with psql
 app.use('/binStatus', binStatusRouter);
+app.use('/manageBin', manageBinRouter);
 app.use('/monitor', monitorRouter);
 app.use('/nearbyApp', nearbyAppRouter);
 
