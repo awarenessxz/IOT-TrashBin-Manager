@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+		<!-- Page Title -->
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/label_template.css' />
+    <link rel='stylesheet' href='/stylesheets/mdi/css/materialdesignicons.css' />
+  
+    <!-- CSS for Styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
+  
+    <!-- JavaScript for Interactivity -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+  
+  </head>
+  <body class="header-fixed">
+
+    <!-- Main Content -->
+  	<div class="page-body">
+
+      <!-- nav bar -->
+      <% include partials/nav.ejs %>
+      <!-- End of Navbar -->
+
+      <!-- side bar -->
+      <% include partials/sidebar.ejs %>
+      <!-- End of Sidebar -->
+
+      <!-- Right Box -->
+      <div class="page-content-wrapper">
+        <!-- Content -->
+        <div class="page-content-wrapper-inner">
+          <div class="content-viewport">
+            <div class="row">
+              <div class="col-12 py-5">
+                <h4>Manage TrashBins</h4>
+                <!-- Trigger the modal with a button -->
+                <p>This is the administration console to manage the Trash Bins in the database</p>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Insert New Bins</button>
+                <!-- put your stuff here -->
+                <% if (messages.error) {%>
+                <div class="alert alert-danger col-12 mt-3">
+                  <%= messages.error %>
+                </div>
+                <% } else if (messages.success) { %>
+                <div class="alert alert-success col-12 mt-3">
+                  <%= messages.success %>
+                </div>
+                <% } %>
+              </div>
+            </div>
+
+            <table id="monitorTable" class="table">
+              <thead class="table-info">
+                <tr>
+                  <th scope="col">Bin ID</th>
+                  <th scope="col">Height of Bin</th>
+                  <th scope="col">Location</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(var i=0; i<data.length; i++) { %>
+                <form action="/manageBin" method="post">
+                  <tr>
+                    <input type="hidden" class="input-normal" name="original_bid" value="<%= data[i].bin_id %>"/>
+                    <td><input type="text" name="bid" value="<%= data[i].bin_id %>"/></td>
+                    <td><input type="number" name="bheight" value="<%= data[i].height %>"/></td>
+                    <td><%= data[i].location%></td>
+                    <td>
+                      <button type="submit" name="update" value="update" class="btn-link">Update</button>
+                       / 
+                      <button type="submit" name="remove" value="remove" class="btn-link">Remove</button>
+                    </td>
+                  </tr>
+                </form>
+                <% } %>
+              </tbody>
+            </table>
+        </div>
+        <!-- End of Content -->
+
+        <!-- Footer -->
+        <% include partials/footer.ejs %>
+        <!-- End of Footer -->
+      </div>
+      <!-- End of Right Box -->
+
+    </div>
+    <!-- End of Main Content -->
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Add New Bins</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <form action="/manageBin" method="post">
+              <div class="form-group">
+                <label for="bid">Bin ID</label>
+                <input type="text" class="form-control" name="bid" id="bid" placeholder="bin/sensor1">
+                <small id="idHelp" class="form-text text-muted">Bin ID will be used as the topic that the sensor will be publishing to</small>
+              </div>
+              <div class="form-group">
+                <label for="bheight">Height</label>
+                <input type="number" class="form-control" name="bheight" id="bheight" placeholder="50">
+              </div>
+              <button type="submit" name="add" value="add" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Additional Javascript -->
+    <script src="/javascripts/label_template.js"></script>
+  </body>
+</html>
